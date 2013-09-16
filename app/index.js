@@ -84,6 +84,14 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
     type: 'confirm',
     name: 'compassBootstrap',
     message: 'Would you like to use the SCSS version of Twitter Bootstrap with the Compass CSS Authoring Framework?',
+    default: false,
+    when: function (props) {
+      return props.bootstrap;
+    }
+  }, {
+    type: 'confirm',
+    name: 'angularBootstrap',
+    message: 'Would you like to use Angular directives for Bootstrap?',
     default: true,
     when: function (props) {
       return props.bootstrap;
@@ -91,6 +99,8 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   }], function (props) {
     this.bootstrap = props.bootstrap;
     this.compassBootstrap = props.compassBootstrap;
+    this.angularBootstrap = props.angularBootstrap;
+    this.config.set('angularBootstrap', this.angularBootstrap);
 
     cb();
   }.bind(this));
@@ -199,6 +209,10 @@ Generator.prototype.extraModules = function extraModules() {
 
   if (this.sanitizeModule) {
     modules.push('bower_components/angular-sanitize/angular-sanitize.js');
+  }
+
+  if (this.angularBootstrap) {
+    modules.push('bower_components/angular-bootstrap/ui-bootstrap.js');
   }
 
   if (modules.length) {

@@ -3,7 +3,8 @@
 describe('Controller: <%= _.classify(name) %>Ctrl', function () {
 
   // load the controller's module
-  beforeEach(module('<%= _.camelize(appname) %>App'));
+  beforeEach(module('<%= _.camelize(appname) %>App'));<% if (config.get('angularBootstrap', false)) { %>
+  beforeEach(module('ui.bootstrap'));<% } %>
 
   var <%= _.classify(name) %>Ctrl,
     scope;
